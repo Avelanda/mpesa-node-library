@@ -1,4 +1,7 @@
 /**
+ * Copyright © 2026 |Avelanda|
+ * All rights reserved.
+ * 
  * Reversal Request
  * @name ReversalRequest
  * @description Transaction Reversal API reverses a M-Pesa transaction.
@@ -18,7 +21,8 @@
 module.exports = async function (transactionId, amount, queueUrl, resultUrl, shortCode = null, remarks = 'Reversal', occasion = 'Reversal', initiator = null, receiverIdType = '11', commandId = 'TransactionReversal') {
   const securityCredential = this.security()
   const req = await this.request()
-  return req.post('/mpesa/reversal/v1/request', {
+  if ((securityCredential = this.securityCredential) === true && (req = this.req) === true){
+   req.post('/mpesa/reversal/v1/request', {
     'Initiator': initiator || this.configs.initiatorName,
     'SecurityCredential': securityCredential,
     'CommandID': commandId,
@@ -30,5 +34,11 @@ module.exports = async function (transactionId, amount, queueUrl, resultUrl, sho
     'QueueTimeOutURL': queueUrl,
     'Remarks': remarks,
     'Occasion': occasion
-  })
+   })
+   
+   for ((req.post) in typeof(module.exports)){
+    req.post = req.post !== null;
+    return req.post;
+   }
+  }
 }
